@@ -1,0 +1,645 @@
+<div id="app">
+    <div type="text/x-template" id="app-template">
+      <v-app>
+        
+        <!--       LEFTSIDE -->
+        
+        <v-layout fluid>
+  
+          <v-navigation-drawer app
+                               color="indigo" 
+                               dark
+                               permanent
+                               width=320
+                               >
+  
+            <!--           TITLE -->
+  
+            <v-col align="center"
+                   justify="center"
+                   class="pa-10">
+              <h1><span class="text-uppercase white--text">B o a r d s</span></h1>
+            </v-col>
+  
+            <!--           NAV -->
+  
+            <v-list color="indigo" >
+              <v-list-group
+                            v-for="item in items"
+                            :key="item.title"
+                            v-model="item.active"
+                            :prepend-icon="item.action"
+                            no-action
+                            mandatory
+                            color="white"
+                            >
+                <template v-slot:activator>
+                  <v-list-item-content>
+                    <v-list-item-title class="grey--text text--lighten-2" 
+                                       v-text="item.title"
+                                       >
+  
+                    </v-list-item-title>
+                  </v-list-item-content>
+                </template>
+  
+                <div class="justify-start">
+                  <v-list-item  v-for="child in item.items" 
+                               :key="child.title"
+                               >
+                    <v-list-item-content>
+                      <v-list-item-title class="white--text" 
+                                         v-text="child.title"
+  
+                                         >
+                      </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </div>
+              </v-list-group>
+            </v-list>
+  
+            <!--           AVATAR -->
+  
+            <v-list>
+              <v-list-item class="float-left">
+                <v-list-item-avatar>
+                  <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
+                </v-list-item-avatar>
+              </v-list-item>
+  
+              <v-list-item link>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    David Troutman
+                  </v-list-item-title>
+  
+                </v-list-item-content>
+  
+                <v-list-item-action>
+                  <v-icon>mdi-menu-down</v-icon>
+                </v-list-item-action>
+              </v-list-item>
+            </v-list>
+  
+          </v-navigation-drawer>
+  
+          <v-content>
+  
+  
+            <!--       RIGHTSIDE -->
+  
+  
+            <!--           TOOLBAR -->
+  
+  
+            <v-flex id="rightside"
+                    class="align-center"
+                    >
+  
+              <v-row id="toolbar"
+                     class="pl-6 align-baseline"
+                     flat
+                     tile
+                     >
+                <v-title class="font-weight-bold white--text green">
+                  <div id="clock" 
+                       class="ma-2"
+                       >
+                    <v-icon large color="white">mdi-clock</v-icon>
+                    <template>{{time}}</template>
+                  </div>  
+                </v-title>
+  
+                <!--               SEARCHBAR -->
+  
+                <div class="pa-2 ma-6">
+                  <v-title class="font-weight-bold indigo--text">Filters:</v-title>
+                </div>
+  
+                <div id="searchbar">
+                  <v-row>
+                    <v-col cols="12">
+                      <v-autocomplete
+                                      v-model="values"
+                                      :items="filterlist"
+                                      dense
+                                      chips
+                                      multiple
+                                      rounded
+                                      deletable-chips
+                                      >
+                      </v-autocomplete>
+                    </v-col>
+                  </v-row>
+                </div>
+                <v-spacer></v-spacer>
+                
+  <!--               BTN REPORT
+                 -->
+                <div class="flex-end">
+                  <v-btn plain
+                         color="indigo"
+                         class="pa-4">Reports</v-btn>
+                </div>
+  
+              </v-row>
+  
+              <!--             DOC -->
+  
+  
+              <v-flex id="documentation">
+                
+                <v-divider></v-divider>
+  
+                <v-container class="ma-5"><h2 class="pt-4">Documentation</h2></v-container>
+  
+                <!-- <v-progress-linear indeterminate color="yellow darken-2"></v-progress-linear> -->
+  
+                <v-container class="ma-5 inline-block">
+                  <v-row class="justify-center">
+  
+                    <!--                     COLONNE 1 -->
+  
+                    <v-col>
+  
+                      <v-card
+                              class="pa-2"
+                              outlined
+                              tile
+                              width=535
+                              >
+  
+                        <v-row class="justify-space-around align-center ma-4">
+                          <h3 class="indigo--text py-5">TO DO</h3>
+                          <v-btn
+                                 fab
+                                 dark
+                                 small
+  
+                                 >
+                            <v-icon>mdi-plus</v-icon>
+                          </v-btn>
+                        </v-row>
+  
+                        <!--                       CARD 1-->
+  
+                        <v-card tile 
+                                class="d-flex align-baseline pa-2 ma-2"
+                                width=500
+                                >
+                          <v-col fluid>
+                            <v-avatar>
+                              <v-img src="https://img.icons8.com/color/48/000000/uber-app.png"/>
+                            </v-avatar>
+                          </v-col>
+  
+                          <v-container fluid>
+                            <v-container fluid>
+                              <v-chip small>HIGH</v-chip>
+  
+                              <v-card-title class="px-0">Prepare Structural Documentation</v-card-title>
+  
+                              <v-card-text>
+                                <v-ship-group class="logobottom d-flex pb-5">
+                                  <v-chip small>Developement</v-chip>
+                                  <v-chip small>Architecture</v-chip>
+                                </v-ship-group>
+                                </v-container>
+  
+                              <v-container>
+                                <v-icon size="15">
+                                  mdi-account
+                                </v-icon>
+                                <v-btn text x-small>
+                                  3 people work on this
+                                </v-btn>
+                                <v-icon size="15">
+                                  mdi-comment
+                                </v-icon>
+                                <v-btn text x-small>
+                                  Comments
+                                </v-btn>
+                              </v-container>
+  
+                              </v-card-text>
+                          </v-container>
+                        </v-card>
+  
+                        <!--                       CARD 2 -->
+  
+                        <v-card tile 
+                                class="d-flex align-baseline pa-2 ma-2"
+                                width=500>
+                          <v-col fluid>
+                            <v-avatar>
+                              <v-img src="https://img.icons8.com/ios/50/000000/adidas-trefoil.png"/>
+                            </v-avatar>
+                          </v-col>
+  
+                          <v-container fluid>
+                            <v-container fluid>
+                              <v-chip small>LOW</v-chip>
+  
+                              <v-card-title>Update Requirement List
+  
+                                <v-card-text>
+                                  <v-ship-group class="logobottom d-flex pb-5">
+                                    <v-chip small>Management</v-chip>
+  
+                                  </v-ship-group>
+                                  </v-container>
+  
+                                <v-container>
+                                  <v-icon size="15">
+                                    mdi-account
+                                  </v-icon>
+                                  <v-btn text x-small>
+                                    3 people work on this
+                                  </v-btn>
+                                  <v-icon size="15">
+                                    mdi-comment
+                                  </v-icon>
+                                  <v-btn text x-small>
+                                    Comments
+                                  </v-btn>
+                                </v-container>
+  
+                                </v-card-text>
+                            </v-container>
+                            </v-card>
+                        </v-card>
+                        </v-col>
+  
+                      <!--                     COLONNE 2 -->
+  
+                      <v-col>
+  
+                        <v-card
+                                class="pa-2"
+                                outlined
+                                tile
+                                width=535
+                                >
+  
+                          <v-row class="justify-space-around align-center ma-5">
+                            <h3 class="indigo--text py-5">In Progess</h3>
+                            <v-btn
+                                   fab
+                                   dark
+                                   small
+  
+                                   >
+                              <v-icon>mdi-plus</v-icon>
+                            </v-btn>
+                          </v-row>
+  
+                          <!--                       CARD 1-->
+  
+                          <v-card tile 
+                                  class="d-flex align-baseline pa-2 ma-2"
+                                  width=500
+                                  >
+                            <v-col fluid>
+                              <v-avatar>
+                                <v-img src="https://img.icons8.com/color/48/000000/uber-app.png"/>
+                              </v-avatar>
+                            </v-col>
+  
+                            <v-container fluid>
+                              <v-container fluid>
+                                <v-chip small>HIGH</v-chip>
+  
+                                <v-card-title class="px-0">Prepare Structural Documentation</v-card-title>
+  
+                                <v-card-text>
+                                  <v-ship-group class="logobottom d-flex pb-5">
+                                    <v-chip small>Developement</v-chip>
+                                    <v-chip small>Architecture</v-chip>
+                                  </v-ship-group>
+                                  </v-container>
+  
+                                <v-container>
+                                  <v-icon size="15">
+                                    mdi-account
+                                  </v-icon>
+                                  <v-btn text x-small>
+                                    3 people work on this
+                                  </v-btn>
+                                  <v-icon size="15">
+                                    mdi-comment
+                                  </v-icon>
+                                  <v-btn text x-small>
+                                    Comments
+                                  </v-btn>
+                                </v-container>
+  
+                                </v-card-text>
+                            </v-container>
+                          </v-card>
+  
+                          <!--                       CARD 2 -->
+  
+                          <v-card tile 
+                                  class="d-flex align-baseline pa-2 ma-2"
+                                  width=500>
+                            <v-col fluid>
+                              <v-avatar>
+                                <v-img src="https://img.icons8.com/ios/50/000000/adidas-trefoil.png"/>
+                              </v-avatar>
+                            </v-col>
+  
+                            <v-container fluid>
+                              <v-container fluid>
+                                <v-chip small>LOW</v-chip>
+  
+                                <v-card-title>Update Requirement List
+  
+                                  <v-card-text>
+                                    <v-ship-group class="logobottom d-flex pb-5">
+                                      <v-chip small>Management</v-chip>
+  
+                                    </v-ship-group>
+                                    </v-container>
+  
+                                  <v-container>
+                                    <v-icon size="15">
+                                      mdi-account
+                                    </v-icon>
+                                    <v-btn text x-small>
+                                      3 people work on this
+                                    </v-btn>
+                                    <v-icon size="15">
+                                      mdi-comment
+                                    </v-icon>
+                                    <v-btn text x-small>
+                                      Comments
+                                    </v-btn>
+                                  </v-container>
+  
+                                  </v-card-text>
+                              </v-container>
+                              </v-card>
+                          </v-card>
+                          </v-col>
+  
+                        <!--                     COLONNE 3 -->
+  
+                        <v-col>
+  
+                          <v-card
+                                  class="pa-2"
+                                  outlined
+                                  tile
+                                  width=535
+                                  >
+  
+                            <v-row class="justify-space-around align-center ma-5">
+                              <h3 class="indigo--text py-5">Done</h3>
+                              <v-btn
+                                     fab
+                                     dark
+                                     small
+  
+                                     >
+                                <v-icon>mdi-plus</v-icon>
+                              </v-btn>
+                            </v-row>
+  
+                            <!--                       CARD 1-->
+  
+                            <v-card tile 
+                                    class="d-flex align-baseline pa-2 ma-2"
+                                    width=500
+                                    >
+                              <v-col fluid>
+                                <v-avatar>
+                                  <v-img src="https://img.icons8.com/color/48/000000/uber-app.png"/>
+                                </v-avatar>
+                              </v-col>
+  
+                              <v-container fluid>
+                                <v-container fluid>
+                                  <v-chip small>HIGH</v-chip>
+  
+                                  <v-card-title class="px-0">Prepare Structural Documentation</v-card-title>
+  
+                                  <v-card-text>
+                                    <v-ship-group class="logobottom d-flex pb-5">
+                                      <v-chip small>Developement</v-chip>
+                                      <v-chip small>Architecture</v-chip>
+                                    </v-ship-group>
+                                    </v-container>
+  
+                                  <v-container>
+                                    <v-icon size="15">
+                                      mdi-account
+                                    </v-icon>
+                                    <v-btn text x-small>
+                                      3 people work on this
+                                    </v-btn>
+                                    <v-icon size="15">
+                                      mdi-comment
+                                    </v-icon>
+                                    <v-btn text x-small>
+                                      Comments
+                                    </v-btn>
+                                  </v-container>
+  
+                                  </v-card-text>
+                              </v-container>
+                            </v-card>
+  
+                            <!--                       CARD 2 -->
+  
+                            <v-card tile 
+                                    class="d-flex align-baseline pa-2 ma-2"
+                                    width=500>
+                              <v-col fluid>
+                                <v-avatar>
+                                  <v-img src="https://img.icons8.com/ios/50/000000/adidas-trefoil.png"/>
+                                </v-avatar>
+                              </v-col>
+  
+                              <v-container fluid>
+                                <v-container fluid>
+                                  <v-chip small>LOW</v-chip>
+  
+                                  <v-card-title>Update Requirement List
+  
+                                    <v-card-text>
+                                      <v-ship-group class="logobottom d-flex pb-5">
+                                        <v-chip small>Management</v-chip>
+  
+                                      </v-ship-group>
+                                      </v-container>
+  
+                                    <v-container>
+                                      <v-icon size="15">
+                                        mdi-account
+                                      </v-icon>
+                                      <v-btn text x-small>
+                                        3 people work on this
+                                      </v-btn>
+                                      <v-icon size="15">
+                                        mdi-comment
+                                      </v-icon>
+                                      <v-btn text x-small>
+                                        Comments
+                                      </v-btn>
+                                    </v-container>
+  
+                                    </v-card-text>
+                                </v-container>
+                                </v-card>
+                            </v-card>
+                            </v-col>
+  
+                          <!--                     COLONNE 4 -->
+  
+                          <v-col>
+  
+                            <v-card
+                                    class="pa-2"
+                                    outlined
+                                    tile
+                                    width=535
+                                    >
+  
+                              <v-row class="justify-space-around align-center ma-5">
+                                <h3 class="indigo--text py-5">QA</h3>
+                                <v-btn
+                                       fab
+                                       dark
+                                       small
+  
+                                       >
+                                  <v-icon>mdi-plus</v-icon>
+                                </v-btn>
+                              </v-row>
+  
+                              <!--                       CARD 1-->
+  
+                              <v-card tile 
+                                      class="d-flex align-baseline pa-2 ma-2"
+                                      width=500
+                                      >
+                                <v-col fluid>
+                                  <v-avatar>
+                                    <v-img src="https://img.icons8.com/color/48/000000/uber-app.png"/>
+                                  </v-avatar>
+                                </v-col>
+  
+                                <v-container fluid>
+                                  <v-container fluid>
+                                    <v-chip small>HIGH</v-chip>
+  
+                                    <v-card-title class="px-0">Prepare Structural Documentation</v-card-title>
+  
+                                    <v-card-text>
+                                      <v-ship-group class="logobottom d-flex pb-5">
+                                        <v-chip small>Developement</v-chip>
+                                        <v-chip small>Architecture</v-chip>
+                                      </v-ship-group>
+                                      </v-container>
+  
+                                    <v-container>
+                                      <v-icon size="15">
+                                        mdi-account
+                                      </v-icon>
+                                      <v-btn text x-small>
+                                        3 people work on this
+                                      </v-btn>
+                                      <v-icon size="15">
+                                        mdi-comment
+                                      </v-icon>
+                                      <v-btn text x-small>
+                                        Comments
+                                      </v-btn>
+                                    </v-container>
+  
+                                    </v-card-text>
+                                </v-container>
+                              </v-card>
+  
+                              <!--                       CARD 2 -->
+  
+                              <v-card tile 
+                                      class="d-flex align-baseline pa-2 ma-2"
+                                      width=500>
+                                <v-col fluid>
+                                  <v-avatar>
+                                    <v-img src="https://img.icons8.com/ios/50/000000/adidas-trefoil.png"/>
+                                  </v-avatar>
+                                </v-col>
+  
+                                <v-container fluid>
+                                  <v-container fluid>
+                                    <v-chip small>LOW</v-chip>
+  
+                                    <v-card-title>Update Requirement List
+  
+                                      <v-card-text>
+                                        <v-ship-group class="logobottom d-flex pb-5">
+                                          <v-chip small>Management</v-chip>
+  
+                                        </v-ship-group>
+                                        </v-container>
+  
+                                      <v-container>
+                                        <v-icon size="15">
+                                          mdi-account
+                                        </v-icon>
+                                        <v-btn text x-small>
+                                          3 people work on this
+                                        </v-btn>
+                                        <v-icon size="15">
+                                          mdi-comment
+                                        </v-icon>
+                                        <v-btn text x-small>
+                                          Comments
+                                        </v-btn>
+                                      </v-container>
+  
+                                      </v-card-text>
+                                  </v-container>
+                                  </v-card>
+                              </v-card>
+                              </v-col>
+  
+                            </v-row>
+  
+                          </v-container> <!-- Right cotainer -->
+                        </v-flex>
+                      </v-container>
+                    </v-card>
+                  </v-col>
+  
+              </v-flex> <!-- Documentation -->
+  
+            </v-flex> <!--Rightpart -->
+          </v-content>
+  
+  
+        </v-layout>
+      </v-app>
+    </div>
+  </div>
+  
+  <!--  <v-list app color="indigo">
+              <v-list-item>
+                <v-list-item-avatar>
+                  <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
+                </v-list-item-avatar>
+              </v-list-item>
+  
+              <v-list-item link>
+                <v-list-item-content>
+                  <v-list-item-title class="title">John Leider</v-list-item-title>
+               </v-list-item-content>
+            </v-list> -->
+  
+  
+  
+  
+  
